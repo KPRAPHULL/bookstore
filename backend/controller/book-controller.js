@@ -5,12 +5,23 @@ const addNewBook = (req, res) => {
     const { title, description, release_date, isbn } = req.body;
 
     // Insert the book into the database
-    try {
-        connection.query('INSERT INTO books(title, description, release_date, isbn) VALUES (?, ?, ?, ?)', [title, description, release_date, isbn])
-        res.status(200).send('Created successfully');
-    } catch (error) {
-        res.status(500).send('Error creating book');
-    }
+    // try {
+    //     let sql = `INSERT INTO books(title, description, release_date, isbn) VALUES (?, ?, ?, ?)`;
+    //     const result = connection.query(sql, [title, description, release_date, isbn]);
+    //     res.status(200).send(result)
+    // } catch (error) {
+    //     res.status(500).send('Error creating book',error);
+    // }
+
+    // Insert the book into the database
+    let sql = `INSERT INTO books(title, description, release_date, isbn) VALUES (?, ?, ?, ?)`;
+    const result = connection.query(sql, [title, description, release_date, isbn], (err, result) => {
+        if (err) {
+            res.send({id: -1}); // indicate error in inserting
+        } else {
+            res.send({id: result.insertId})
+        }
+    });
 }
 
 // Fetch all book details
@@ -76,20 +87,20 @@ const validateUser = (req, res) => {
     try {
         connection.query(
             `SELECT * FROM users 
-            WHERE uname = ? AND password = ? AND isadmin = 1`, 
-            [username, password], 
+            WHERE uname = ? AND password = ? AND isadmin = 1`,
+            [username, password],
             (err, result) => {
                 if (err) {
                     res.send("error");
                     return;
-                } 
-                if(result.length == 0) {
-                    res.send({valid: "no"})
-                }else {
-                    res.send({valid: "yes"})
+                }
+                if (result.length == 0) {
+                    res.send({ valid: "no" })
+                } else {
+                    res.send({ valid: "yes" })
                 }
 
-             })
+            })
 
     } catch (error) {
 

@@ -22,12 +22,25 @@ const LoginForm = ({ handleLogin, handleOpen }) => {
         }
     }
     return (
-        <div className='w-1/4 shadow shadow-slate-700 rounded mx-auto absolute top-32 right-32'>
+        <div className='shadow shadow-slate-500 max-w-sm  min-w-[384px] p-3 my-4 rounded mx-auto'>
             <p className='shadow-md shadow-blue-300 py-3 text-3xl text-center text-white bg-sky-600'>Login User</p>
             <form className='p-5 space-y-2' onSubmit={verify}>
-                <input className='py-3 px-4 ' type="text" name="username" placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} />
-                <input className='py-3 px-4' type="password" name="password" placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
-                <button className='block bg-sky-200 py-3 px-4 text-white text-xl rounded fond-bold hover:bg-sky-500'>Login</button>
+
+                <label class="block">
+                    <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Username
+                    </span>
+                    <input type="text" name="username" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="ex: admin" value={username} onChange={e => setUsername(e.target.value)} />
+                </label>
+
+                <label class="block">
+                    <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Password
+                    </span>
+                    <input type="password" name="username" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="ex: admin" value={password} onChange={e => setPassword(e.target.value)} />
+                </label>
+
+                <button className='shadow bg-blue-300 p-2 text-xl text-white rounded relative top-2 hover:bg-sky-600'>Login</button>
             </form>
         </div>
     )

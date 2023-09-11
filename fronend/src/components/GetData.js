@@ -5,7 +5,7 @@ import AddBook from './AddBook';
 
 const url = "http://localhost:5000/api/book"
 const GetData = ({ login }) => {
-    const [fillform, setFillform] = useState(false);
+    // const [fillform, setFillform] = useState(false);
     const [books, setBooks] = useState([])
 
 
@@ -29,8 +29,8 @@ const GetData = ({ login }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(book)
             });
-            // return response.json();
-            setBooks([...books, book]);
+            const { id } = await response.json();
+            setBooks([...books, {...book, id}]);
         } catch (error) {
 
         }
@@ -45,7 +45,8 @@ const GetData = ({ login }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(book)
             });
-            setBooks([...books, book]);
+            let filterBook = books.filter((book) => book.id !== id) // not select updated book
+            setBooks([...filterBook, {...book, id}]);
         } catch (error) {
 
         }
@@ -73,7 +74,7 @@ const GetData = ({ login }) => {
             }
             {
                 books.length === 0 ? <p>No book is available</p> :
-                    <ul className='m-2'>
+                    <ul className='flex flex-col items-center md:justify-center md:flex-row md:flex-wrap md:gap-x-8'>
                         {
                             books.map((item) => (<BookDetails item={item} login={login} operation={operation} />))
                         }
