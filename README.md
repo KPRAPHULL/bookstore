@@ -3,6 +3,7 @@
 It is simple book store build with Reactjs, Tailwind CSS, MySql and Nodejs.
 
 ## Feature
+- Mobile friendly(i.e responsive)
 - Normal user can view book
 - Admin can create, view, edit and delete book
 
